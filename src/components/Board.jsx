@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { imgs } from "../data";
 import Card from "./Card";
 import Modal from "./Modal";
