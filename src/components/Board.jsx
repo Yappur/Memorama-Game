@@ -1,4 +1,7 @@
-import { use, useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { imgs } from "../data";
+import Card from "./Card";
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -29,13 +32,22 @@ export const Board = () => {
         matched: false,
       };
     });
+
+    setCards(cards);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    createBoard();
+  }, []);
 
   return (
-    <div className="relative h-screen flex items-center ">
+    <div className="relative h-screen flex flex-col items-center justify-center">
       <h1 className="font-bold text-4xl">Memory game</h1>
+      <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
+        {cards.map((card) => (
+          <Card card={card} key={card.id} />
+        ))}
+      </div>
     </div>
   );
 };
