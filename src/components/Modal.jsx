@@ -1,4 +1,5 @@
 import React from "react";
+import { FaHeart } from "react-icons/fa";
 
 const Modal = ({ gameOver, setGameOver, moves, handleNewGame }) => {
   return (
@@ -13,6 +14,10 @@ const Modal = ({ gameOver, setGameOver, moves, handleNewGame }) => {
       >
         &times;
       </button>
+
+      <div className="text-red-500 uppercase text-3xl font-bold tracking-wider animate-bounce">
+        <FaHeart />
+      </div>
 
       <h1 className="text-white uppercase text-3xl font-bold tracking-wider">
         ¡Ganaste!

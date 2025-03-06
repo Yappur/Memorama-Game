@@ -122,7 +122,7 @@ const BubbleBackground = () => {
 
     const handleResize = () => {
       w = c.width = window.innerWidth;
-      h = c.height = window.innerHeight * 0.9; // Mantenemos el 90% en el resize
+      h = c.height = window.innerHeight;
       world.physicalProperties.width = w;
       world.physicalProperties.height = h;
       ctx.globalCompositeOperation = "lighter";
@@ -162,7 +162,7 @@ const BubbleBackground = () => {
         top: 0,
         left: 0,
         width: "100%",
-        height: "90vh",
+        height: "100vh",
         zIndex: -1,
       }}
     />
