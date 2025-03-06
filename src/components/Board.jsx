@@ -89,23 +89,19 @@ export const Board = () => {
 
   return (
     <>
-      {gameOver && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-10"></div>
-      )}
-
-      <div className="relative h-screen flex flex-col items-center justify-center">
-        <h1 className="font-bold text-4xl">Memory game</h1>
+      <div className="relative flex flex-col items-center justify-center py-20">
+        <h1 className="font-bold text-4xl text-black ">Memory Game ⚡</h1>
         <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
           {cards.map((card) => (
             <Card card={card} key={card.id} handleCardClick={handleCardClick} />
           ))}
         </div>
-        <div className="flex justify-between gap-3 py-1">
-          <p className="text-black">Movimientos:</p>
-          <p className="text-black">{moves}</p>
+        <div className="flex justify-between gap-3 py-3">
+          <p className="text-black text-2xl">Movimientos:</p>
+          <p className="text-black text-2xl">{moves}</p>
         </div>
         <button
-          className="bg-black font-semibold text-white rounded-md px5 py-1 hover:bg-yellow-500 hover:text-black transition-all mb-3"
+          className="bg-black font-semibold text-white rounded-3xl px-5 py-3 hover:bg-yellow-500 hover:text-black transition-all"
           onClick={handleNewGame}
         >
           Nuevo Juego

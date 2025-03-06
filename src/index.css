@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "GAME_glm";
+  src: url("/public/GAME_glm.ttf");
+}
+
+body {
+  position: relative;
+  margin: 0;
+}
+
+canvas {
+  position: absolute;
+}
+
+h1 {
+  text-shadow: 2px 2px 14px rgba(255, 255, 255, 0.692);
+  font-family: "GAME_glm";
+}
