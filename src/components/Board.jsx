@@ -40,12 +40,39 @@ export const Board = () => {
     createBoard();
   }, []);
 
+  const handleCardClick = (id) => {
+    const [currentCard] = cards.filter((card) => card.id === id);
+    if (!currentCard.flipped && !currentCard.matched) {
+      currentCard.flipped = true;
+
+      const newFlippedCards = [...flippedCards, currentCard];
+      setFlippedCards(newFlippedCards);
+
+      if (newFlippedCards.length === 2) {
+        const [firstCard, secondCard] = newFlippedCards;
+        if (firstCard.src === secondCard.src) {
+          firstCard.matched = true;
+          secondCard.matched = true;
+        } else {
+          setTimeout(() => {
+            firstCard.flipped = false;
+            secondCard.flipped = false;
+            setCards(cards);
+          }, 1000);
+        }
+
+        setFlippedCards([]);
+        setMoves(moves + 1);
+      }
+    }
+  };
+
   return (
     <div className="relative h-screen flex flex-col items-center justify-center">
       <h1 className="font-bold text-4xl">Memory game</h1>
       <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
         {cards.map((card) => (
-          <Card card={card} key={card.id} />
+          <Card card={card} key={card.id} handleCardClick={handleCardClick} />
         ))}
       </div>
     </div>
