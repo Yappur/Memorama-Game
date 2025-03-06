@@ -4,12 +4,12 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div>
-      <div>
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-grow relative">
         <BubbleBackground />
         <Board />
       </div>
-      <Footer />
+      <Footer className="mt-auto" />
     </div>
   );
 }

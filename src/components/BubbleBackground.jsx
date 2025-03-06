@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const BubbleBackground = () => {
   const canvasRef = useRef(null);
@@ -8,13 +8,14 @@ const BubbleBackground = () => {
     const c = canvasRef.current;
     const ctx = c.getContext("2d");
 
+    // Ajustamos la altura para dejar espacio para el footer
     let w = (c.width = window.innerWidth);
-    let h = (c.height = window.innerHeight);
+    let h = (c.height = window.innerHeight * 0.9); // Reducimos al 90% de la altura
 
     const bubblesNumber = w * h > 750000 ? 200 : 150;
     const maxRadius = w * h > 500000 ? 50 : 35;
     const maxYVelocity = 2;
-    let objects = [];
+    const objects = [];
 
     function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
@@ -121,7 +122,7 @@ const BubbleBackground = () => {
 
     const handleResize = () => {
       w = c.width = window.innerWidth;
-      h = c.height = window.innerHeight;
+      h = c.height = window.innerHeight * 0.9; // Mantenemos el 90% en el resize
       world.physicalProperties.width = w;
       world.physicalProperties.height = h;
       ctx.globalCompositeOperation = "lighter";
@@ -150,18 +151,18 @@ const BubbleBackground = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [animationFrameId]);
 
   return (
     <canvas
       ref={canvasRef}
       id="c"
       style={{
-        position: "fixed",
+        position: "absolute",
         top: 0,
         left: 0,
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "90vh",
         zIndex: -1,
       }}
     />
