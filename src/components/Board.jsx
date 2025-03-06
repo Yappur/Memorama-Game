@@ -90,13 +90,13 @@ export const Board = () => {
   return (
     <>
       <div className="relative flex flex-col items-center justify-center py-20">
-        <h1 className="font-bold text-4xl text-black ">Memory game</h1>
+        <h1 className="font-bold text-4xl text-black ">Memory Game ⚡</h1>
         <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
           {cards.map((card) => (
             <Card card={card} key={card.id} handleCardClick={handleCardClick} />
           ))}
         </div>
-        <div className="flex justify-between gap-3 py-5">
+        <div className="flex justify-between gap-3 py-3">
           <p className="text-black text-2xl">Movimientos:</p>
           <p className="text-black text-2xl">{moves}</p>
         </div>
