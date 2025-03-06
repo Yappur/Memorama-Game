@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { imgs } from "../data";
 import Card from "./Card";
+import Modal from "./Modal";
 
 const shuffleArray = (array) => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -41,6 +42,8 @@ export const Board = () => {
   }, []);
 
   const handleCardClick = (id) => {
+    if (isDisabled) return;
+
     const [currentCard] = cards.filter((card) => card.id === id);
     if (!currentCard.flipped && !currentCard.matched) {
       currentCard.flipped = true;
@@ -49,33 +52,73 @@ export const Board = () => {
       setFlippedCards(newFlippedCards);
 
       if (newFlippedCards.length === 2) {
+        setIsDisabled(true);
         const [firstCard, secondCard] = newFlippedCards;
         if (firstCard.src === secondCard.src) {
           firstCard.matched = true;
           secondCard.matched = true;
+          setIsDisabled(false);
         } else {
           setTimeout(() => {
             firstCard.flipped = false;
             secondCard.flipped = false;
             setCards(cards);
+            setIsDisabled(false);
           }, 1000);
         }
 
         setFlippedCards([]);
         setMoves(moves + 1);
       }
+
+      setCards(cards);
+    }
+    if (cards.every((card) => card.matched)) {
+      setGameOver(true);
+      setIsDisabled(true);
     }
   };
 
+  const handleNewGame = () => {
+    setCards([]);
+    createBoard();
+    setMoves(0);
+    setGameOver(false);
+    setIsDisabled(false);
+  };
+
   return (
-    <div className="relative h-screen flex flex-col items-center justify-center">
-      <h1 className="font-bold text-4xl">Memory game</h1>
-      <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
-        {cards.map((card) => (
-          <Card card={card} key={card.id} handleCardClick={handleCardClick} />
-        ))}
+    <>
+      {gameOver && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-10"></div>
+      )}
+
+      <div className="relative h-screen flex flex-col items-center justify-center">
+        <h1 className="font-bold text-4xl">Memory game</h1>
+        <div className="grid grid-cols-4 gap-3 justify-center items-center px-3 py-5 my-3">
+          {cards.map((card) => (
+            <Card card={card} key={card.id} handleCardClick={handleCardClick} />
+          ))}
+        </div>
+        <div className="flex justify-between gap-3 py-1">
+          <p className="text-black">Movimientos:</p>
+          <p className="text-black">{moves}</p>
+        </div>
+        <button
+          className="bg-black font-semibold text-white rounded-md px5 py-1 hover:bg-yellow-500 hover:text-black transition-all mb-3"
+          onClick={handleNewGame}
+        >
+          Nuevo Juego
+        </button>
+
+        <Modal
+          gameOver={gameOver}
+          setGameOver={setGameOver}
+          moves={moves}
+          handleNewGame={handleNewGame}
+        />
       </div>
-    </div>
+    </>
   );
 };
 
